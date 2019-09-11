@@ -1,0 +1,54 @@
+<main>
+	<app-main-nav>
+		<mat-card>
+			<form [formGroup]='myForm' fxLayout="column" fxLayoutAlign="center center"
+				fxLayoutAlign.xs="space-between stretch">
+				Value: {{ myForm.value | json }}
+				<hr>
+				<div class="add-buttons" fxLayout="row" fxLayout.xs="column">
+					<mat-form-field>
+						<input type="text" matInput placeholder="Enter image title" formControlName="title">
+					</mat-form-field>
+					<button mat-raised-button color="primary" (click)="addCategory()">+ Add image category</button>
+					<button mat-raised-button color="primary" (click)="addTag()">+ Add image tag</button>
+					<button mat-raised-button color="accent" (click)="upload()">Upload image</button>
+				</div>
+
+				<span style="color:red;" *ngIf="message">{{ message }}</span>
+
+				<!-- Dropzone -->
+				<div class="box" *ngIf="!imgURL">
+					<div class="dropzone" appFileDrop (filesDropped)="handleDrop($event)"
+						(filesHovered)="dropzoneState($event)" [ngClass]="{'active': dropzoneActive}">
+						<h3>Drop File</h3>
+						<i class="fa fa-cloud-upload fa-4x"></i>
+					</div>
+				</div>
+
+				<!-- Image preview -->
+				<div class="preview-container">
+					<img [src]="imgURL" width="100%" *ngIf="imgURL">
+				</div>
+
+				<div formArrayName="categories">
+					<div *ngFor="let category of categoryForms.controls; let i=index" [formGroupName]="i">
+						<mat-form-field>
+							<input type="text" matInput placeholder="Enter category" formControlName="name">
+						</mat-form-field>
+						<button mat-raised-button color="warn" (click)="deleteCategory(i)">Delete image
+							category</button>
+					</div>
+				</div>
+
+				<div formArrayName="tags">
+					<div *ngFor="let tag of tagForms.controls; let i=index" [formGroupName]="i">
+						<mat-form-field>
+							<input type="text" matInput placeholder="Enter tag" formControlName="name">
+						</mat-form-field>
+						<button mat-raised-button color="warn" (click)="deleteTag(i)">Delete image tag</button>
+					</div>
+				</div>
+			</form>
+		</mat-card>
+	</app-main-nav>
+</main>

@@ -1,0 +1,23 @@
+::ng-deep .mat-dialog-container {
+	padding: 0;
+	background-color: transparent;
+}
+
+mat-card {
+	position: relative;
+}
+
+button {
+	position: absolute;
+	top: 17px;
+	right: 17px;
+}
+
+.image-container {
+	height: 70vh;
+
+	img {
+		object-fit: contain;
+		height: 100%;
+	}
+}

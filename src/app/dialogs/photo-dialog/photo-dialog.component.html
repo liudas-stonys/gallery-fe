@@ -1,0 +1,15 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>{{ photo.title }}</mat-card-title>
+		<mat-card-subtitle>Photo Viewer</mat-card-subtitle>
+		<button (click)="closeDialog()" mat-icon-button>
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-card-header>
+	<div mat-card-image class="image-container">
+		<img src="data:{{ photo.mime }};base64,{{ photo.data }}" [alt]="photo.title">
+	</div>
+	<mat-card-content>
+		<p>{{ photo.description }}</p>
+	</mat-card-content>
+</mat-card>

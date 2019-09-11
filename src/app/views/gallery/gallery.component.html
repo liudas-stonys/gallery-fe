@@ -1,0 +1,48 @@
+<app-main-nav>
+	<main>
+		<mat-card fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around end"
+			fxLayoutAlign.xs="space-around stretch" class="sorting-container">
+			<label fxFlex="40" fxFlex.xs="100" class="pure-material-textfield-outlined relative">
+				<input [(ngModel)]="search" (ngModelChange)="initSearch($event)" class="input-padding" placeholder=" ">
+				<span class="placeholder">Search is under construction...</span> <!-- TODO -->
+				<span class="sufix">
+					<mat-icon>search</mat-icon>
+				</span>
+			</label>
+			<div fxFlex="5"></div>
+			<mat-form-field fxFlex="25" fxFlex.xs="100">
+				<mat-label>Sort by Categories</mat-label>
+				<mat-select [(ngModel)]="selectedCategories" (ngModelChange)="selectPhotosByCategories()" multiple>
+					<mat-option *ngFor="let cat of categories" [value]="cat">{{ cat.name }}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<div fxFlex="5"></div>
+			<mat-form-field fxFlex="25" fxFlex.xs="100">
+				<mat-label>Sort by Tags</mat-label>
+				<mat-select [(ngModel)]="selectedTags" (ngModelChange)="selectPhotosByTags()" multiple>
+					<mat-option *ngFor="let tag of tags" [value]="tag">{{ tag.name }}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<div class="heading-chip">
+				<p>Filter</p>
+			</div>
+		</mat-card>
+		<mat-card>
+			<div fxLayout="row wrap" fxLayoutAlign="center" class="gallery-container">
+				<div class="res-count-container"> Showing {{ resCount | itemsCount }} results </div>
+				<ng-container *ngIf="isLoaded else loading">
+					<div class="photo-container" *ngFor="let item of selectedPhotos" (click)="openPhoto(item)">
+						<app-photo [photo]="item"></app-photo>
+					</div>
+				</ng-container>
+			</div>
+			<div class="heading-chip">
+				<p>Gallery</p>
+			</div>
+		</mat-card>
+	</main>
+
+	<ng-template #loading>
+		<mat-spinner color="accent"></mat-spinner>
+	</ng-template>
+</app-main-nav>

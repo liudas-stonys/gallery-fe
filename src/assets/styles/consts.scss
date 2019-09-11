@@ -1,0 +1,14 @@
+// colors 
+
+// $primary: '#6456464';
+// $secondary: '#fgg33423';
+
+@import "~@angular/material/theming";
+
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+
+// the default warn palette is red, so use that if the theme doesn't define one
+$warn: mat-palette($mat-red);
+
+$background: rgba(128, 0, 255, 0.2);
