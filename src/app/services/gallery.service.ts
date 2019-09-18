@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IPhoto, ICategory, ITag } from '../models';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,8 +11,8 @@ export class GalleryService {
 
 	constructor(private http: HttpClient) { }
 
-	getPhotos(): Promise<IPhoto[]> {
-		return this.http.get<IPhoto[]>('http://localhost:8080/api/images').toPromise();
+	getPhotos(): Observable<IPhoto[]> {
+		return this.http.get<IPhoto[]>('http://localhost:8080/api/images');
 	}
 
 	getCategories(): Promise<ICategory[]> {
@@ -31,5 +32,13 @@ export class GalleryService {
 			reportProgress: true,
 			observe: 'events'
 		}).toPromise();
+	}
+
+	searchImages(data: string[]): Promise<IPhoto[]> {
+		return this.http.get<IPhoto[]>(`http://localhost:8080/api/images/search?data=${data}`).toPromise();
+	}
+
+	deletePhoto(id: number): Observable<any> {
+		return this.http.delete(`http://localhost:8080/api/images/${id}`);
 	}
 }

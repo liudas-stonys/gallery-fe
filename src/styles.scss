@@ -1,17 +1,28 @@
 @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
-
-$fa-font-path: '../node_modules/font-awesome/fonts';
-@import '../node_modules/font-awesome/scss/font-awesome.scss';
-
-@import 'assets/styles/consts.scss';
+@import "assets/styles/consts.scss";
 
 html,
 body {
 	height: 100%;
-	background-color: $background;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-	margin: 0;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-family: "Roboto", "Helvetica Neue", sans-serif;
+}
+
+body::before {
+	content: "";
+	background-image: url("assets/bg-img-1.jpg");
+	filter: brightness(90%);
+	background-size: cover;
+	background-position: center;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+}
+
+a {
+	cursor: pointer;
 }

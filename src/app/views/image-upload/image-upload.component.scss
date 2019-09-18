@@ -1,7 +1,7 @@
 @import "../../../assets/styles/consts.scss";
 
-mat-card {
-	margin: 100px;
+.image-upload-container {
+	height: 100%;
 }
 
 form {
@@ -47,15 +47,27 @@ form {
 		border: 3px grey dashed;
 		border-radius: 7px;
 		display: inherit;
+		flex-direction: inherit;
 		justify-content: inherit;
 		align-items: inherit;
 		width: 69vw;
 		height: 200px;
-	}
+		position: relative;
+		cursor: pointer;
 
-	h3,
-	i {
-		color: grey;
+		h3 {
+			position: absolute;
+			top: 10px;
+		}
+
+		mat-icon {
+			transform: scale(4);
+		}
+
+		h3,
+		mat-icon {
+			color: grey;
+		}
 	}
 
 	.active {

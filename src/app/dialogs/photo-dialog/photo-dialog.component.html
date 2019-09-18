@@ -2,9 +2,13 @@
 	<mat-card-header>
 		<mat-card-title>{{ photo.title }}</mat-card-title>
 		<mat-card-subtitle>Photo Viewer</mat-card-subtitle>
-		<button (click)="closeDialog()" mat-icon-button>
-			<mat-icon>close</mat-icon>
-		</button>
+
+		<div class="close-button-container">
+			<button mat-icon-button (click)="closeDialog()">
+				<mat-icon>close</mat-icon>
+			</button>
+		</div>
+
 	</mat-card-header>
 	<div mat-card-image class="image-container">
 		<img src="data:{{ photo.mime }};base64,{{ photo.data }}" [alt]="photo.title">
@@ -12,4 +16,9 @@
 	<mat-card-content>
 		<p>{{ photo.description }}</p>
 	</mat-card-content>
+
+	<div class="edit-button-container" *ngIf="this.authService.currentUserValue">
+		<button mat-button mat-stroked-button routerLink="image-upload" (click)="closeDialog()">Edit</button>
+		<button mat-button mat-stroked-button (click)="deletePhoto(photo.id)">Delete</button>
+	</div>
 </mat-card>

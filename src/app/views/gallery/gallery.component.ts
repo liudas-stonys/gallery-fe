@@ -3,6 +3,7 @@ import { GalleryService } from './../../services/gallery.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IPhoto, ICategory, ITag } from 'src/app/models';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-gallery',
@@ -24,6 +25,9 @@ export class GalleryComponent implements OnInit {
 		sortIcon: 'keyboard_arrow_up'
 	};
 	search = '';
+	sendingRequest = false;
+	alertService: any;
+	loading: boolean;
 
 	constructor(private gallery: GalleryService, public dialog: MatDialog) { }
 
@@ -31,21 +35,29 @@ export class GalleryComponent implements OnInit {
 		this.loadPhotos();
 		this.initCategories();
 		this.initTags();
+		console.log(this.photos.length);
+		this.resCount = this.photos.length;
 	}
 
 	loadPhotos(): void {
 		this.gallery.getPhotos()
-			.then(data => {
-				this.photos = data;
-				this.selectedPhotos = data;
-				this.isLoaded = true;
-			});
+			.pipe(first())
+			.subscribe(
+				data => {
+					this.photos = data;
+					this.selectedPhotos = data;
+					this.isLoaded = true;
+					this.resCount = this.photos.length;
+				},
+				error => {
+					this.alertService.error(error);
+					this.loading = false;
+				});
 	}
 
 	private initCategories(): void {
 		this.gallery.getCategories().then(data => {
 			this.categories = data;
-			console.log(data);
 		});
 	}
 
@@ -95,8 +107,6 @@ export class GalleryComponent implements OnInit {
 
 	async openPhoto(photoData: IPhoto): Promise<any> {
 		const photo = await this.gallery.getPhotoById(photoData.idImageFullSize);
-		photo.description = 'Very nais foto. Very gud!';
-		console.log(photo);
 		return this.dialog.open(PhotoDialogComponent, {
 			data: photo
 		});
@@ -112,8 +122,13 @@ export class GalleryComponent implements OnInit {
 	}
 
 	initSearch(e: string) {
-		if (e.length > 2) {
-			console.log('sending request...');
+		// Instantly removes all not letters, not numbers, trailing spaces and 1-2 char long "words" // TODO: Don't filter lithuanian!
+		this.search = e.replace(/[^a-z0-9\s]+|^[ ]+|^[a-z0-9]{1,2}[ ]/i, '').replace(/[ ]{2,}|[ ][a-z0-9]{1,2}[ ]/, ' ');
+		
+		// Checks if last word is at least 3 letters long
+		if (this.search.split(' ').pop().replace(' ', '').length > 2) {
+			const data = this.search.split(' ').map(el => el.toLowerCase());
+			this.gallery.searchImages(data).then(res => this.selectedPhotos = res);
 		}
 	}
 }

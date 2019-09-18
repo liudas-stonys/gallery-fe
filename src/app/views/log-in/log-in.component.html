@@ -1,0 +1,24 @@
+<div class="login-container" fxLayout="row" fxLayoutAlign="center center">
+	<mat-card class="box">
+		<!-- <ng-container *ngIf="isLoaded else loading"> -->
+		<mat-card-header>
+			<mat-card-title>Log in</mat-card-title>
+		</mat-card-header>
+
+		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+			<mat-card-content>
+				<mat-form-field>
+					<input matInput placeholder="Username" formControlName="username" name="username">
+				</mat-form-field>
+
+				<mat-form-field>
+					<input matInput placeholder="Password" formControlName="password" name="password">
+				</mat-form-field>
+
+				<mat-checkbox color="primary">Remember me</mat-checkbox>
+			</mat-card-content>
+			<button mat-stroked-button color="primary" class="btn-block">Log in</button>
+		</form>
+		<!-- </ng-container> -->
+	</mat-card>
+</div>

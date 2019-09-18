@@ -7,17 +7,25 @@ mat-card {
 	position: relative;
 }
 
-button {
+.close-button-container {
 	position: absolute;
 	top: 17px;
 	right: 17px;
+
+	button {
+		margin-left: 10px;
+	}
 }
 
 .image-container {
-	height: 70vh;
+	max-height: 70vh;
+	cursor: -moz-zoom-in;
+	cursor: -webkit-zoom-in;
+	cursor: zoom-in;
 
 	img {
 		object-fit: contain;
-		height: 100%;
+		max-width: 80vw;
+		max-height: 70vh;
 	}
 }

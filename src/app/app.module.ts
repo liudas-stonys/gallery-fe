@@ -1,38 +1,29 @@
+import { AuthenticationService } from './services/authentication.service';
+import { AlertService } from './services/alert.service';
 import { FileDropDirective } from './directives/file-drop.directive';
 import { GalleryService } from './services/gallery.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
-import {
-	MatDialogModule,
-	MatCardModule,
-	MatIconModule,
-	MatButtonModule,
-	MatSelectModule,
-	MatInputModule,
-	MatProgressSpinnerModule,
-	MatCheckboxModule,
-	MatChipsModule
-} from '@angular/material';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemsCountPipe } from './pipes/items-count.pipe';
-import { CiferPipe } from './pipes/cifer.pipe';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
+import { RegisterComponent } from './views/register/register.component';
+import { AngularMaterialModule } from './angular-material.module';
+import { LogInComponent } from './views/log-in/log-in.component';
+import { UserService } from './services/user.service';
+import { AlertComponent } from './components/alert/alert.component';
+import { HomeComponent } from './views/home/home.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ImageUploadComponent } from './views/image-upload/image-upload.component';
 import {
-	MainNavComponent,
 	GalleryComponent,
 	PhotoComponent,
 	PhotoDialogComponent,
-	UploadFormComponent,
 } from './components';
 
 @NgModule({
@@ -42,34 +33,31 @@ import {
 		PhotoComponent,
 		PhotoDialogComponent,
 		ItemsCountPipe,
-		CiferPipe,
-		UploadFormComponent,
 		FileDropDirective,
-		MainNavComponent
+		RegisterComponent,
+		LogInComponent,
+		AlertComponent,
+		HomeComponent,
+		ImageUploadComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		HttpClientModule,
 		BrowserAnimationsModule,
-		MatDialogModule,
-		MatCardModule,
-		MatIconModule,
-		MatButtonModule,
-		MatSelectModule,
-		FormsModule,
-		MatInputModule,
-		MatProgressSpinnerModule,
 		FlexLayoutModule,
-		LayoutModule,
-		MatToolbarModule,
-		MatSidenavModule,
-		MatListModule,
+		FormsModule,
 		ReactiveFormsModule,
-		MatCheckboxModule,
-		MatChipsModule
+		LayoutModule,
+		AngularMaterialModule
 	],
-	providers: [GalleryService],
+	providers: [
+		GalleryService,
+		UserService,
+		AlertService,
+		AuthenticationService,
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+	],
 	bootstrap: [AppComponent],
 	entryComponents: [PhotoDialogComponent]
 })

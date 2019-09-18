@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { GalleryService } from 'src/app/services/gallery.service';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
 @Component({
-	selector: 'app-upload-form',
-	templateUrl: './upload-form.component.html',
-	styleUrls: ['./upload-form.component.scss']
+	selector: 'app-image-upload',
+	templateUrl: './image-upload.component.html',
+	styleUrls: ['./image-upload.component.scss']
 })
-export class UploadFormComponent implements OnInit {
+export class ImageUploadComponent implements OnInit {
 	myForm: FormGroup;
 	currentFile: File;
 	dropzoneActive = false;
@@ -55,7 +55,7 @@ export class UploadFormComponent implements OnInit {
 	}
 
 	deleteTag(i: number): void {
-		this.categoryForms.removeAt(i);
+		this.tagForms.removeAt(i);
 	}
 
 	/*** Dropzone ***/
@@ -96,9 +96,5 @@ export class UploadFormComponent implements OnInit {
 				this.router.navigate(['']);
 			}
 		});
-	}
-
-	log() {
-		console.log(17);
 	}
 }

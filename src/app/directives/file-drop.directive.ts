@@ -30,5 +30,4 @@ export class FileDropDirective {
 	onDragLeave($event: any) {
 		this.filesHovered.emit(false);
 	}
-
 }

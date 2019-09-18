@@ -1,0 +1,13 @@
+<div class="alert-container" fxLayout="row" fxLayoutAlign="center center">
+	<mat-card>
+		<h1>Hi {{currentUser.username}}!</h1>
+		<p>You're logged in with Angular 8!!</p>
+		<h3>All registered users:</h3>
+		<ul>
+			<li *ngFor="let user of users">
+				{{ user.id }}, {{ user.username }}, {{ user.email }}, {{ user.role }}
+				- <a (click)="deleteUser(user.id)" class="text-danger" mat-button color="warn">Delete</a>
+			</li>
+		</ul>
+	</mat-card>
+</div>
