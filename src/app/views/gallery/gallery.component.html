@@ -32,7 +32,7 @@
 		<div fxLayout="row wrap" fxLayoutAlign="center" class="gallery-container">
 			<div class="res-count-container"> Showing {{ resCount | itemsCount }} results </div>
 			<ng-container *ngIf="isLoaded else loading">
-				<div class="photo-container" *ngFor="let item of selectedPhotos" (click)="openPhoto(item)">
+				<div class="photo-container" *ngFor="let item of selectedPhotos" (click)="openDialog(item)">
 					<app-photo [photo]="item"></app-photo>
 				</div>
 			</ng-container>

@@ -13,31 +13,39 @@ import { first } from 'rxjs/operators';
 	styleUrls: ['./photo-dialog.component.scss']
 })
 export class PhotoDialogComponent {
+	showLargeImage = false;
 
 	constructor(
 		public dialogRef: MatDialogRef<PhotoDialogComponent>,
 		@Inject(MAT_DIALOG_DATA) public photo: IPhoto,
 		private gallery: GalleryService,
-		private router: Router,
 		private alertService: AlertService,
 		public authService: AuthenticationService
 	) { }
 
 	closeDialog(): void {
-		return this.dialogRef.close();
+		this.showLargeImage = false;
+		this.dialogRef.close();
 	}
 
-	deletePhoto(id: number): void {
+	deletePhoto(id: number): IPhoto[] {
 		this.gallery.deletePhoto(id)
-			.pipe(first())
-			.subscribe(
-				resolve => {
-					console.log(resolve);
+			.then(
+				data => {
 					this.closeDialog();
-					this.router.navigate(['gallery']);
+					return data; // TODO: update gallery with one call
 				},
 				error => {
 					this.alertService.error(error);
 				});
+		return null;
+	}
+
+	onClick(): void {
+		if (this.showLargeImage) {
+			this.showLargeImage = false;
+		} else {
+			this.showLargeImage = true;
+		}
 	}
 }

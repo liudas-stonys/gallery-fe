@@ -35,7 +35,6 @@ export class GalleryComponent implements OnInit {
 		this.loadPhotos();
 		this.initCategories();
 		this.initTags();
-		console.log(this.photos.length);
 		this.resCount = this.photos.length;
 	}
 
@@ -105,11 +104,19 @@ export class GalleryComponent implements OnInit {
 		}
 	}
 
-	async openPhoto(photoData: IPhoto): Promise<any> {
-		const photo = await this.gallery.getPhotoById(photoData.idImageFullSize);
-		return this.dialog.open(PhotoDialogComponent, {
-			data: photo
-		});
+	// async openPhoto(photoData: IPhoto): Promise<any> {
+	// 	const photo = await this.gallery.getPhotoById(photoData.idImageFullSize);
+	// 	return this.dialog.open(PhotoDialogComponent, {
+	// 		data: photo
+	// 	});
+	// }
+
+	openDialog(photoData: IPhoto) {
+		this.gallery.getPhotoById(photoData.idImageFullSize)
+			.then(photoFullSize => this.dialog.open(PhotoDialogComponent, {
+				data: photoFullSize
+			})
+				.afterClosed().subscribe(() => this.loadPhotos()));
 	}
 
 	changeSortDate() {
@@ -124,7 +131,7 @@ export class GalleryComponent implements OnInit {
 	initSearch(e: string) {
 		// Instantly removes all not letters, not numbers, trailing spaces and 1-2 char long "words" // TODO: Don't filter lithuanian!
 		this.search = e.replace(/[^a-z0-9\s]+|^[ ]+|^[a-z0-9]{1,2}[ ]/i, '').replace(/[ ]{2,}|[ ][a-z0-9]{1,2}[ ]/, ' ');
-		
+
 		// Checks if last word is at least 3 letters long
 		if (this.search.split(' ').pop().replace(' ', '').length > 2) {
 			const data = this.search.split(' ').map(el => el.toLowerCase());

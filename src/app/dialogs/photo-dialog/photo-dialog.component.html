@@ -8,16 +8,19 @@
 				<mat-icon>close</mat-icon>
 			</button>
 		</div>
-
 	</mat-card-header>
-	<div mat-card-image class="image-container">
-		<img src="data:{{ photo.mime }};base64,{{ photo.data }}" [alt]="photo.title">
+
+	<!-- <div class="overlay" [ngClass]="{'img-large-overlay': showLargeImage}"></div> -->
+
+	<div mat-card-image [ngClass]="{'image-container': !showLargeImage, 'img-large-container': showLargeImage}">
+		<img src="data:{{ photo.mime }};base64,{{ photo.data }}" [alt]="photo.title"
+			[ngClass]="{'img-large': showLargeImage}" (click)="onClick()">
 	</div>
 	<mat-card-content>
 		<p>{{ photo.description }}</p>
 	</mat-card-content>
 
-	<div class="edit-button-container" *ngIf="this.authService.currentUserValue">
+	<div class="edit-button-container" *ngIf="this.authService.currentUserValue && !showLargeImage">
 		<button mat-button mat-stroked-button routerLink="image-upload" (click)="closeDialog()">Edit</button>
 		<button mat-button mat-stroked-button (click)="deletePhoto(photo.id)">Delete</button>
 	</div>

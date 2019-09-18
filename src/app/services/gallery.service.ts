@@ -38,7 +38,19 @@ export class GalleryService {
 		return this.http.get<IPhoto[]>(`http://localhost:8080/api/images/search?data=${data}`).toPromise();
 	}
 
-	deletePhoto(id: number): Observable<any> {
-		return this.http.delete(`http://localhost:8080/api/images/${id}`);
+	deletePhoto(id: number): Promise<IPhoto[]> {
+		return this.http.delete<IPhoto[]>(`http://localhost:8080/api/images/${id}`).toPromise();
+	}
+
+	// updateGallery(data: IPhoto[]): void {
+
+	// }
+
+	wait(ms: number): void {
+		const start = new Date().getTime();
+		let end = start;
+		while (end < start + ms) {
+			end = new Date().getTime();
+		}
 	}
 }
