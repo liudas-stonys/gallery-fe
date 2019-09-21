@@ -1,23 +1,24 @@
 <div class="image-upload-container" fxLayout="row" fxLayoutAlign="center center">
 	<mat-card>
-		<form [formGroup]="myForm">
+		<form [formGroup]="myForm" fxLayout="column" fxLayoutAlign=" center">
 			Value: {{ myForm.value | json }}
-			<hr>
-			<div class="add-buttons">
-				<mat-form-field>
-					<input type="text" matInput placeholder="Enter image title" formControlName="title" name="title">
-				</mat-form-field>
-				<button mat-raised-button color="primary" (click)="addCategory()">+ Add image category</button>
-				<button mat-raised-button color="primary" (click)="addTag()">+ Add image tag</button>
-				<button mat-raised-button color="accent" (click)="upload()">Upload image</button>
-			</div>
+			<hr style="width: 69%">
+
+			<mat-form-field>
+				<input type="text" matInput placeholder="Enter image title" formControlName="title" name="title">
+			</mat-form-field>
+			<mat-form-field>
+				<input type="text" matInput placeholder="Enter image description" formControlName="description"
+					name="description">
+			</mat-form-field>
+
 			<span style="color:red;" *ngIf="message">{{ message }}</span>
-			<input type="file" accept="image/*" #file style="display: none">
+			<input type="file" accept="image/*" #file style="display: none" (change)="handleInput($event)">
 			<!-- Dropzone -->
 			<div class="box" *ngIf="!imgURL">
 				<button (click)="file.click()">
 					<div class="dropzone" appFileDrop (filesDropped)="handleDrop($event)"
-						(filesHovered)="dropzoneState($event)" [ngClass]="{'active': dropzoneActive}" (click)="log()">
+						(filesHovered)="dropzoneState($event)" [ngClass]="{'active': dropzoneActive}">
 						<h3>Drop image or click here</h3>
 						<mat-icon>cloud_upload</mat-icon>
 					</div>
@@ -26,6 +27,12 @@
 			<!-- Image preview -->
 			<div class="preview-container">
 				<img [src]="imgURL" width="100%" *ngIf="imgURL">
+			</div>
+
+			<div class="buttons-container">
+				<button mat-raised-button color="primary" (click)="addCategory()">+ Add image category</button>
+				<button mat-raised-button color="primary" (click)="addTag()">+ Add image tag</button>
+				<button mat-raised-button color="accent" (click)="upload()">Upload image</button>
 			</div>
 
 			<div formArrayName="categories">

@@ -1,3 +1,4 @@
+import { PhotoComponent } from './components/photo/photo.component';
 import { LogInComponent } from './views/log-in/log-in.component';
 import { GalleryComponent } from './views/gallery/gallery.component';
 import { NgModule } from '@angular/core';
@@ -10,6 +11,7 @@ import { HomeComponent } from './views/home/home.component';
 const routes: Routes = [
 	{ path: '', component: GalleryComponent },
 	{ path: 'gallery', component: GalleryComponent },
+	{ path: 'photo', component: PhotoComponent },
 	{ path: 'login', component: LogInComponent },
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

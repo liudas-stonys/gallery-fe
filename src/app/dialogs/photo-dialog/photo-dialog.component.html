@@ -1,27 +1,37 @@
 <mat-card>
 	<mat-card-header>
-		<mat-card-title>{{ photo.title }}</mat-card-title>
-		<mat-card-subtitle>Photo Viewer</mat-card-subtitle>
+		<mat-card-title>{{ data.photoData.title }}</mat-card-title>
+		<!-- <mat-card-subtitle>Photo Viewer</mat-card-subtitle> -->
+
+		<!-- TODO: make display hidden -->
+		<div fxLayout="row" fxLayoutAlign="end none" class="edit-button-container">
+			<button mat-button mat-stroked-button routerLink="image-upload" (click)="closeDialog()">Edit</button>
+			<button mat-button mat-stroked-button (click)="deletePhoto(data.photoData.id)">Delete</button>
+			<button mat-button mat-stroked-button (click)="openPhoto(data.photoFullSize)">Open in new window</button>
+		</div>
 
 		<div class="close-button-container">
-			<button mat-icon-button (click)="closeDialog()">
+			<button mat-icon-button cdkFocusRegionstart (click)="closeDialog()">
 				<mat-icon>close</mat-icon>
 			</button>
 		</div>
 	</mat-card-header>
 
-	<!-- <div class="overlay" [ngClass]="{'img-large-overlay': showLargeImage}"></div> -->
-
-	<div mat-card-image [ngClass]="{'image-container': !showLargeImage, 'img-large-container': showLargeImage}">
-		<img src="data:{{ photo.mime }};base64,{{ photo.data }}" [alt]="photo.title"
-			[ngClass]="{'img-large': showLargeImage}" (click)="onClick()">
+	<!-- DIV: Playground -->
+	<!-- <a href="javascript: void(0)" (click)="onClick(photo)"> -->
+	<!-- <a target="_blank" href="{{ photo.data }}" width="777"> -->
+	<!-- <img [src]="sanitizeBase64(photo.mime, photo.data)" [alt]="photo.title"
+				[ngClass]="{'img-large': showLargeImage}"> -->
+	<div class="img-container" mat-card-image [ngClass]="{'image-container': !showLargeImage, 'large-image-container': showLargeImage}" (click)="onClick()">
+		<img src="data:{{ data.photoFullSize.mime }};base64,{{ data.photoFullSize.data }}" [alt]="data.photoData.title" [ngClass]="{'image': !showLargeImage, 'large-image': showLargeImage}">
 	</div>
+	<!-- (click)="dialogRef.close()" -->
+	<!-- </a> -->
+	<!-- DIV: Playground -->
+
 	<mat-card-content>
-		<p>{{ photo.description }}</p>
+		<ng-container *ngIf="!showLargeImage">
+			<p>{{ data.photoData.description }}</p>
+		</ng-container>
 	</mat-card-content>
-
-	<div class="edit-button-container" *ngIf="this.authService.currentUserValue && !showLargeImage">
-		<button mat-button mat-stroked-button routerLink="image-upload" (click)="closeDialog()">Edit</button>
-		<button mat-button mat-stroked-button (click)="deletePhoto(photo.id)">Delete</button>
-	</div>
 </mat-card>

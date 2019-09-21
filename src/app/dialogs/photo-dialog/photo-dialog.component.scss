@@ -3,8 +3,35 @@
 	background-color: transparent;
 }
 
+::ng-deep .cdk-overlay-dark-backdrop {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+::ng-deep .cdk-overlay-pane {
+	max-width: 100vw;
+}
+
 mat-card {
 	position: relative;
+}
+
+.mat-card>:first-child {
+	margin: 10px;
+}
+
+.mat-card>:last-child:not(.mat-card-footer) {
+	margin: 20px;
+}
+
+.edit-button-container {
+	width: 100%;
+	position: relative;
+	bottom: 5px;
+	right: 50px;
+	
+	button {
+		margin-left: 1px;
+	}
 }
 
 .close-button-container {
@@ -17,47 +44,38 @@ mat-card {
 	}
 }
 
+.mat-card-image {
+	margin: 0 -16px;
+}
+
+.img-container {
+	max-width: 80vw; // TODO: fix this shit
+}
+
+img {
+	min-width: 50vw;
+	max-width: inherit;
+	object-fit: contain;
+}
+
 .image-container {
 	max-height: 70vh;
 	cursor: -moz-zoom-in;
 	cursor: -webkit-zoom-in;
 	cursor: zoom-in;
 
-	img {
-		object-fit: contain;
-		max-width: 80vw;
-		max-height: 70vh;
+	.image {
+		max-height: inherit;
 	}
-
-
 }
 
-// .img-large-container:before {
-// 	content: "";
-// 	background: black;
-// }
-
-// .img-large-overlay {
-// 	position: absolute;
-// 	top: 0;
-// 	left: 0;
-// 	bottom: 0;
-// 	right: 0;
-// 	background: black;
-// 	z-index: 69;
-// }
-
-.img-large-container {
+.large-image-container {
 	max-height: 100vh;
-	max-width: 100vw;
+	cursor: -moz-zoom-out;
+	cursor: -webkit-zoom-out;
+	cursor: zoom-out;
+}
 
-	.img-large {
-		object-fit: none;
-		// max-width: none;
-		// max-height: 90vh;
-		cursor: -moz-zoom-out;
-		cursor: -webkit-zoom-out;
-		cursor: zoom-out;
-		z-index: 99;
-	}
+mat-card-content {
+	margin: 10px;
 }

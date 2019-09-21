@@ -1,16 +1,16 @@
 <mat-toolbar color="primary">
 	<div><a href="https://liudas-stonys.github.io" target="_blank" class="brand">Gallery App</a></div>
 	<span class="nav-tool-items">
-		<div *ngIf="!currentUser">
-			<a mat-button mat-raised-button routerLink="gallery" routerLinkActive="active">Gallery</a>
+		<a mat-button mat-raised-button routerLink="gallery" routerLinkActive="active">Gallery</a>
+		<ng-container *ngIf="!currentUser">
 			<a mat-button mat-raised-button routerLink="login" routerLinkActive="active">Log in</a>
 			<a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
-		</div>
-		<div *ngIf="currentUser">
+		</ng-container>
+		<ng-container *ngIf="currentUser">
 			<a mat-button mat-raised-button routerLink="home" routerLinkActive="active">Home</a>
 			<a mat-button mat-raised-button routerLink="image-upload" routerLinkActive="active">Upload</a>
 			<a mat-button mat-raised-button routerLinkActive="active" (click)="logout()">Logout</a>
-		</div>
+		</ng-container>
 	</span>
 </mat-toolbar>
 

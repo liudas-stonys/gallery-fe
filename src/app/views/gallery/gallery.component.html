@@ -33,7 +33,7 @@
 			<div class="res-count-container"> Showing {{ resCount | itemsCount }} results </div>
 			<ng-container *ngIf="isLoaded else loading">
 				<div class="photo-container" *ngFor="let item of selectedPhotos" (click)="openDialog(item)">
-					<app-photo [photo]="item"></app-photo>
+					<app-photo-thumbnail [photo]="item"></app-photo-thumbnail>
 				</div>
 			</ng-container>
 		</div>

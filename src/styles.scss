@@ -11,11 +11,18 @@ body {
 body {
 	font-family: "Roboto", "Helvetica Neue", sans-serif;
 
-	background-image: url("assets/bg-img-1.jpg");
+	// background-image: url("assets/bg-img-1.jpg");
 	// filter: brightness(90%);
 	// background-size: cover;
+	// background-repeat: no-repeat;
 	// background-position: center;
+	// background-attachment: fixed;
 	// position: relative;
+
+	// position: static;
+	// backface-visibility: hidden;
+
+	background: url("assets/bg-img-1.jpg") fixed;
 }
 
 a {

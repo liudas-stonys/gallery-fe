@@ -20,11 +20,11 @@ import { AlertComponent } from './components/alert/alert.component';
 import { HomeComponent } from './views/home/home.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ImageUploadComponent } from './views/image-upload/image-upload.component';
-import {
-	GalleryComponent,
-	PhotoComponent,
-	PhotoDialogComponent,
-} from './components';
+import { GalleryComponent } from './views/gallery/gallery.component';
+import { PhotoComponent } from './components/photo/photo.component';
+import { PhotoDialogComponent } from './dialogs/photo-dialog/photo-dialog.component';
+import { PhotoThumbnailComponent } from './components/photo-thumbnail/photo-thumbnail.component';
+import { HoverClassDirective } from './directives/hover-class.directive';
 
 @NgModule({
 	declarations: [
@@ -38,7 +38,9 @@ import {
 		LogInComponent,
 		AlertComponent,
 		HomeComponent,
-		ImageUploadComponent
+		ImageUploadComponent,
+		PhotoThumbnailComponent,
+		HoverClassDirective
 	],
 	imports: [
 		BrowserModule,

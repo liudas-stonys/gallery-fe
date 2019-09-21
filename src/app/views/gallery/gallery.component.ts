@@ -114,7 +114,10 @@ export class GalleryComponent implements OnInit {
 	openDialog(photoData: IPhoto) {
 		this.gallery.getPhotoById(photoData.idImageFullSize)
 			.then(photoFullSize => this.dialog.open(PhotoDialogComponent, {
-				data: photoFullSize
+				data: {
+					photoData,
+					photoFullSize
+				}
 			})
 				.afterClosed().subscribe(() => this.loadPhotos()));
 	}
@@ -129,6 +132,8 @@ export class GalleryComponent implements OnInit {
 	}
 
 	initSearch(e: string) {
+		if (e === '') { this.selectedPhotos = this.photos; }
+
 		// Instantly removes all not letters, not numbers, trailing spaces and 1-2 char long "words" // TODO: Don't filter lithuanian!
 		this.search = e.replace(/[^a-z0-9\s]+|^[ ]+|^[a-z0-9]{1,2}[ ]/i, '').replace(/[ ]{2,}|[ ][a-z0-9]{1,2}[ ]/, ' ');
 
